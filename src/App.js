@@ -1,11 +1,11 @@
 import './App.css';
-import Table from './components/Table';
+import TableUI from './components/TableUI';
 import firebase from './util/firebase';
 
 function App() {
   const Users = 
     {
-      Id : 0,
+      Id : 3,
       Name : Math.random().toString(36).substring(4),
       Pseudo : Math.random().toString(36).substring(4)
     }
@@ -20,8 +20,8 @@ function App() {
     <div className="App">
 
 
-        <Table/>
-
+        <TableUI/>
+        <button onClick={Add}>Add</button>
 
     </div>
   );
