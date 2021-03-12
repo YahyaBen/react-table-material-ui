@@ -7,9 +7,16 @@ import { forwardRef } from 'react';
 const TableUI = () => {
     // const ABC = [{"Id":1,"Name":"Yahya","Pseudo":"Hyrkul"},{"Id":2,"Name":"Yahya1","Pseudo":"Hyrkul1"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},{"Id":2,"Name":"Yahya2","Pseudo":"Hyrkul2"},]
     const [users, setUsers] = useState([])
+    const Users =
+    {
+        Id: 3,
+        Name: Math.random().toString(36).substring(4),
+        Pseudo: Math.random().toString(36).substring(4)
+    }
     const [selectedRow, setSelectedRow] = useState(null);
     const tableIcons = {
-        Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),}
+        Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    }
     useEffect(() => {
         firebase.firestore()
             .collection("Test")
@@ -19,25 +26,14 @@ const TableUI = () => {
     }, [])
     const COLUMNS = [// Etape 2 - Creer less colonnes correspond a Json
         {
-            title: 'ID',
-            field: "Id"
-        },
-        {
-            title: 'Name',
-            field: "Name"
-        },
-        {
             title: 'Pseudo',
             field: "Pseudo"
         }]
 
-        const AA=()=> {
-            console.log("Test - event");
-        }
     return (
-        <div>
+        <div >
             <MaterialTable
-            icons={tableIcons}
+                icons={tableIcons}
                 title="Test"
                 data={users.map(u => u.data())}
                 columns={COLUMNS}
@@ -45,21 +41,25 @@ const TableUI = () => {
                 options={{
                     rowStyle: rowData => ({
                         backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
-                      }),
+                    }),
                     actionsColumnIndex: -1,
-                    
+
                 }}
                 actions={[{
-                    icon: ()=> "AccessAlarm",
+                    icon:"how_to_reg",
                     tooltip: 'Save User',
-                    onClick: (event, rowData) =>  AA(),
+                    onClick: (event, rowData) => console.log(),
                 },
                 {
-                    icon: 'save',
-                    tooltip: 'Save User',
-                    onClick: (event, rowData) =>  AA(),
+                    icon: 'add',
+                    tooltip: 'Add User',
+                    isFreeAction: true,
+                    onClick: (event) => firebase
+                        .firestore()
+                        .collection("Test")
+                        .add(Users)
                 }
-            ]}
+                ]}
             />
         </div>
     )
