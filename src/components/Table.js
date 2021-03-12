@@ -64,7 +64,6 @@ const Table = () => {
                     )
                 })}
             </tbody>
-
         </Table>
     )
 }
